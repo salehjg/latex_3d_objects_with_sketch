@@ -1,0 +1,20 @@
+def cube {
+  polygon[linecolor=blue,fillcolor=red]( 1,-1,-1)( 1, 1,-1)( 1, 1, 1)( 1,-1, 1)
+  polygon[linecolor=blue,fillcolor=green](-1,-1, 1)(-1, 1, 1)(-1, 1,-1)(-1,-1,-1)
+
+  polygon[linecolor=blue,fillcolor=blue](-1,-1,-1)( 1,-1,-1)( 1,-1, 1)(-1,-1, 1)
+  polygon[linecolor=blue,fillcolor=yellow](-1, 1, 1)( 1, 1, 1)( 1, 1,-1)(-1, 1,-1)
+
+  polygon[linecolor=blue,fillcolor=cyan](-1,-1, 1)( 1,-1, 1)( 1, 1, 1)(-1, 1, 1)
+  polygon[linecolor=blue,fillcolor=magenta](-1, 1,-1)( 1, 1,-1)( 1,-1,-1)(-1,-1,-1)
+}
+
+def rawcubes {
+  {cube}
+  put { translate([2.5,0,0]) } {cube}
+  put { translate([0,0,-2.5]) } {cube}
+  put { translate([0,0,2.5]) } {cube}
+  put { translate([-2.5,0,0]) } {cube}
+}
+
+put { view( (3, 5, 5) ) then perspective(5) } {rawcubes}
