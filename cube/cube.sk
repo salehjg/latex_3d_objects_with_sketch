@@ -13,7 +13,8 @@ def cube {
 
 def rawcubes {
   {cube}
-  put { rotate(15 , (O), [1,0,0]) then translate([2.5,0,0]) } {cube}
+  % rotate 15 degrees about axis-x with the origin of (O) which is (0,0,0). Note that (0,0,0) denotes a point and [0,0,0] denotes a vector
+  put { rotate(15 , (O), [1,0,0]) then translate([2.5,0,0]) } {cube} 
   put { rotate(30, (O), [1,0,0]) then translate([0,0,-2.5]) } {cube}
   put { rotate(45, (O), [1,0,0]) then translate([0,0,2.5]) } {cube}
   put { rotate(60, (O), [1,0,0]) then translate([-2.5,0,0]) } {cube}
