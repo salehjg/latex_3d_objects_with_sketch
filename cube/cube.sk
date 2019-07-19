@@ -1,20 +1,22 @@
+def O (0,0,0)
+
 def cube {
-  polygon[linecolor=blue,fillcolor=red]( 1,-1,-1)( 1, 1,-1)( 1, 1, 1)( 1,-1, 1)
-  polygon[linecolor=blue,fillcolor=green](-1,-1, 1)(-1, 1, 1)(-1, 1,-1)(-1,-1,-1)
+  polygon[linecolor=blue,fillcolor=red,opacity=0.8]( 1,-1,-1)( 1, 1,-1)( 1, 1, 1)( 1,-1, 1)
+  polygon[linecolor=blue,fillcolor=green,opacity=0.8](-1,-1, 1)(-1, 1, 1)(-1, 1,-1)(-1,-1,-1)
 
-  polygon[linecolor=blue,fillcolor=blue](-1,-1,-1)( 1,-1,-1)( 1,-1, 1)(-1,-1, 1)
-  polygon[linecolor=blue,fillcolor=yellow](-1, 1, 1)( 1, 1, 1)( 1, 1,-1)(-1, 1,-1)
+  polygon[linecolor=blue,fillcolor=blue,opacity=0.8](-1,-1,-1)( 1,-1,-1)( 1,-1, 1)(-1,-1, 1)
+  polygon[linecolor=blue,fillcolor=yellow,opacity=0.8](-1, 1, 1)( 1, 1, 1)( 1, 1,-1)(-1, 1,-1)
 
-  polygon[linecolor=blue,fillcolor=cyan](-1,-1, 1)( 1,-1, 1)( 1, 1, 1)(-1, 1, 1)
-  polygon[linecolor=blue,fillcolor=magenta](-1, 1,-1)( 1, 1,-1)( 1,-1,-1)(-1,-1,-1)
+  polygon[linecolor=blue,fillcolor=cyan,opacity=0.8](-1,-1, 1)( 1,-1, 1)( 1, 1, 1)(-1, 1, 1)
+  polygon[linecolor=blue,fillcolor=magenta,opacity=0.8](-1, 1,-1)( 1, 1,-1)( 1,-1,-1)(-1,-1,-1)
 }
 
 def rawcubes {
   {cube}
-  put { translate([2.5,0,0]) } {cube}
-  put { translate([0,0,-2.5]) } {cube}
-  put { translate([0,0,2.5]) } {cube}
-  put { translate([-2.5,0,0]) } {cube}
+  put { rotate(15 , (O), [1,0,0]) then translate([2.5,0,0]) } {cube}
+  put { rotate(30, (O), [1,0,0]) then translate([0,0,-2.5]) } {cube}
+  put { rotate(45, (O), [1,0,0]) then translate([0,0,2.5]) } {cube}
+  put { rotate(60, (O), [1,0,0]) then translate([-2.5,0,0]) } {cube}
 }
 
-put { view( (3, 5, 5) ) then perspective(5) } {rawcubes}
+put { view( (3, 5, 5) ) then perspective(5) then scale(3) } {rawcubes}
