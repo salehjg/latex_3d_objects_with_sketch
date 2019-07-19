@@ -1,0 +1,27 @@
+def O (0,0,0)
+def pitch 0.2
+def gridsize_x 4
+def gridsize_y 4
+def gridsize_z 4
+
+
+
+def cube {
+  polygon[linecolor=blue,fillcolor=red,opacity=0.8]( 1,-1,-1)( 1, 1,-1)( 1, 1, 1)( 1,-1, 1)
+  polygon[linecolor=blue,fillcolor=green,opacity=0.8](-1,-1, 1)(-1, 1, 1)(-1, 1,-1)(-1,-1,-1)
+
+  polygon[linecolor=blue,fillcolor=blue,opacity=0.8](-1,-1,-1)( 1,-1,-1)( 1,-1, 1)(-1,-1, 1)
+  polygon[linecolor=blue,fillcolor=yellow,opacity=0.8](-1, 1, 1)( 1, 1, 1)( 1, 1,-1)(-1, 1,-1)
+
+  polygon[linecolor=blue,fillcolor=cyan,opacity=0.8](-1,-1, 1)( 1,-1, 1)( 1, 1, 1)(-1, 1, 1)
+  polygon[linecolor=blue,fillcolor=magenta,opacity=0.8](-1, 1,-1)( 1, 1,-1)( 1,-1,-1)(-1,-1,-1)
+}
+
+def cubegrid {
+  repeat {gridsize_z, translate([0,0,2+pitch]) } 
+  repeat {gridsize_y, translate([0,2+pitch,0]) } 
+  repeat {gridsize_x, translate([2+pitch,0,0]) }
+  {cube}  
+}
+
+put { view( (20, 20, 20) ) then perspective(20) } {cubegrid}
