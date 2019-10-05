@@ -1,0 +1,63 @@
+def W 2
+def H 1
+def Dim2LabelsY -H/2
+def Dim1LabelsY -2/2*H
+def Dim0LabelsY -3/2*H
+
+def D0 2
+def D1 2
+def D2 3
+
+
+def slice1{
+    repeat{D2, translate([W,0])}{
+        polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+    }
+} 
+
+def assembled{
+    repeat{D0, translate([D2*D1*W,0])}{
+        {line[linewidth=2pt](0,H+1)(0,-2*H)}
+
+        repeat{D1, translate([D2*W,0])}{
+            {line[linewidth=2pt](0,H)(0,-H)}
+            {slice1}
+            {line[linewidth=2pt](D2*W,H)(D2*W,-H)}
+        }
+
+        {line[linewidth=2pt](D2*D1*W,H+1)(D2*D1*W,-2*H)}
+    }
+
+
+    %Dimension Labels DIM2
+    repeat{D0, translate([D2*D1*W,0])}{
+        repeat{D1, translate([D2*W,0])}{
+            special |\tiny 
+                    \uput{0}[d]#1{$d_2=0$}
+                    \uput{0}[d]#2{$d_2=1$}
+                    \uput{0}[d]#3{$d_2=2$}|
+            (0+W/2,Dim2LabelsY)(W+W/2,Dim2LabelsY)(2*W+W/2,Dim2LabelsY)
+        }
+
+        %Dimension Labels DIM1
+        line[linewidth=0.5pt](0+W/2,Dim1LabelsY)(D2*W-W/2,Dim1LabelsY)
+        line[linewidth=0.5pt](1*D2*W + 0+W/2,Dim1LabelsY)(1*D2*W + D2*W-W/2,Dim1LabelsY)
+        special |\tiny 
+                \uput{0.02}[d]#1{$d_1=0$}
+                \uput{0.02}[d]#2{$d_1=1$}|
+        (0*D2*W +D2*W/2,Dim1LabelsY)(1*D2*W +D2*W/2,Dim1LabelsY)
+    }
+
+    %Dimension Labels DIM0
+    line[linewidth=0.5pt](0+W/2,Dim0LabelsY)(D1*D2*W-W/2,Dim0LabelsY)
+    line[linewidth=0.5pt](1*D1*D2*W + 0+W/2,Dim0LabelsY)(1*D1*D2*W + D1*D2*W-W/2,Dim0LabelsY)
+    special |\tiny 
+            \uput{0.02}[d]#1{$d_0=0$}
+            \uput{0.02}[d]#2{$d_0=1$}|
+    (0*D1*D2*W +D1*D2*W/2,Dim0LabelsY)(1*D1*D2*W +D1*D2*W/2,Dim0LabelsY)
+    
+
+}
+
+
+put {  scale(0.5) } {assembled}

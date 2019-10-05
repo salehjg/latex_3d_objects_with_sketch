@@ -1,0 +1,146 @@
+def W 1
+def H 1
+def Z 1
+
+def N 2
+def K 5
+def D 8
+
+def Axes{
+    line[arrows=->](0,0,0)(2,0,0)
+    line[arrows=->](0,0,0)(0,2,0)
+    line[arrows=->](0,0,0)(0,0,2)
+    special |\tiny
+        \uput{0.1}[u]#1{\rl{Z}}|(0,0,2)
+    special |\tiny
+        \uput{0.1}[u]#1{\rl{Y}}|(0,2,0)
+    special |\tiny
+        \uput{0.1}[u]#1{\rl{X}}|(2,0,0)
+}
+
+def Cube{
+    polygon[linecolor=blue,fillcolor=cyan,opacity=0.8]( W/2,-H/2,-Z/2)( W/2, H/2,-Z/2)( W/2, H/2, Z/2)( W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=cyan,opacity=0.8](-W/2,-H/2, Z/2)(-W/2, H/2, Z/2)(-W/2, H/2,-Z/2)(-W/2,-H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=cyan,opacity=0.8](-W/2,-H/2,-Z/2)( W/2,-H/2,-Z/2)( W/2,-H/2, Z/2)(-W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=cyan,opacity=0.8](-W/2, H/2, Z/2)( W/2, H/2, Z/2)( W/2, H/2,-Z/2)(-W/2, H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=cyan,opacity=0.8](-W/2,-H/2, Z/2)( W/2,-H/2, Z/2)( W/2, H/2, Z/2)(-W/2, H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=cyan,opacity=0.8](-W/2, H/2,-Z/2)( W/2, H/2,-Z/2)( W/2,-H/2,-Z/2)(-W/2,-H/2,-Z/2)
+}
+
+def CubeBrown{
+    polygon[linecolor=blue,fillcolor=brown,opacity=0.8]( W/2,-H/2,-Z/2)( W/2, H/2,-Z/2)( W/2, H/2, Z/2)( W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=brown,opacity=0.8](-W/2,-H/2, Z/2)(-W/2, H/2, Z/2)(-W/2, H/2,-Z/2)(-W/2,-H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=brown,opacity=0.8](-W/2,-H/2,-Z/2)( W/2,-H/2,-Z/2)( W/2,-H/2, Z/2)(-W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=brown,opacity=0.8](-W/2, H/2, Z/2)( W/2, H/2, Z/2)( W/2, H/2,-Z/2)(-W/2, H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=brown,opacity=0.8](-W/2,-H/2, Z/2)( W/2,-H/2, Z/2)( W/2, H/2, Z/2)(-W/2, H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=brown,opacity=0.8](-W/2, H/2,-Z/2)( W/2, H/2,-Z/2)( W/2,-H/2,-Z/2)(-W/2,-H/2,-Z/2)
+}
+
+def CubeOrange{
+    polygon[linecolor=blue,fillcolor=orange,opacity=0.9]( W/2,-H/2,-Z/2)( W/2, H/2,-Z/2)( W/2, H/2, Z/2)( W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=orange,opacity=0.9](-W/2,-H/2, Z/2)(-W/2, H/2, Z/2)(-W/2, H/2,-Z/2)(-W/2,-H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=orange,opacity=0.9](-W/2,-H/2,-Z/2)( W/2,-H/2,-Z/2)( W/2,-H/2, Z/2)(-W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=orange,opacity=0.9](-W/2, H/2, Z/2)( W/2, H/2, Z/2)( W/2, H/2,-Z/2)(-W/2, H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=orange,opacity=0.9](-W/2,-H/2, Z/2)( W/2,-H/2, Z/2)( W/2, H/2, Z/2)(-W/2, H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=orange,opacity=0.9](-W/2, H/2,-Z/2)( W/2, H/2,-Z/2)( W/2,-H/2,-Z/2)(-W/2,-H/2,-Z/2)
+}
+
+def CubeGreen{
+    polygon[linecolor=blue,fillcolor=green,opacity=0.9]( W/2,-H/2,-Z/2)( W/2, H/2,-Z/2)( W/2, H/2, Z/2)( W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=green,opacity=0.9](-W/2,-H/2, Z/2)(-W/2, H/2, Z/2)(-W/2, H/2,-Z/2)(-W/2,-H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=green,opacity=0.9](-W/2,-H/2,-Z/2)( W/2,-H/2,-Z/2)( W/2,-H/2, Z/2)(-W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=green,opacity=0.9](-W/2, H/2, Z/2)( W/2, H/2, Z/2)( W/2, H/2,-Z/2)(-W/2, H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=green,opacity=0.9](-W/2,-H/2, Z/2)( W/2,-H/2, Z/2)( W/2, H/2, Z/2)(-W/2, H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=green,opacity=0.9](-W/2, H/2,-Z/2)( W/2, H/2,-Z/2)( W/2,-H/2,-Z/2)(-W/2,-H/2,-Z/2)
+}
+
+def CubeYellow{
+    polygon[linecolor=blue,fillcolor=yellow,opacity=0.9]( W/2,-H/2,-Z/2)( W/2, H/2,-Z/2)( W/2, H/2, Z/2)( W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=yellow,opacity=0.9](-W/2,-H/2, Z/2)(-W/2, H/2, Z/2)(-W/2, H/2,-Z/2)(-W/2,-H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=yellow,opacity=0.9](-W/2,-H/2,-Z/2)( W/2,-H/2,-Z/2)( W/2,-H/2, Z/2)(-W/2,-H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=yellow,opacity=0.9](-W/2, H/2, Z/2)( W/2, H/2, Z/2)( W/2, H/2,-Z/2)(-W/2, H/2,-Z/2)
+    polygon[linecolor=blue,fillcolor=yellow,opacity=0.9](-W/2,-H/2, Z/2)( W/2,-H/2, Z/2)( W/2, H/2, Z/2)(-W/2, H/2, Z/2)
+    polygon[linecolor=blue,fillcolor=yellow,opacity=0.9](-W/2, H/2,-Z/2)( W/2, H/2,-Z/2)( W/2,-H/2,-Z/2)(-W/2,-H/2,-Z/2)
+}
+
+def Slice{
+    repeat{D, translate([0,0,Z])}{
+        put{translate([W/2,H/2,Z/2])}{Cube}
+    }
+}
+
+def SliceOrange{
+    repeat{D, translate([0,0,Z])}{
+        put{translate([W/2,H/2,Z/2])}{CubeOrange}
+    }
+}
+
+def SliceGreen{
+    repeat{D, translate([0,0,Z])}{
+        put{translate([W/2,H/2,Z/2])}{CubeGreen}
+    }
+}
+
+def SliceYellow{
+    repeat{D, translate([0,0,Z])}{
+        put{translate([W/2,H/2,Z/2])}{CubeYellow}
+    }
+}
+
+def InputTensorCyan{
+    repeat{N,translate([0,H,0])}{
+        repeat{K,translate([W,0,0])}{
+            {Slice}
+        }
+    }
+}
+
+def InputTensor{
+    {InputTensorCyan}
+
+    put{translate([(K-1)*W+0.01,0,0.01])}{
+        {SliceYellow}
+    }
+}
+
+def Weights{
+    {SliceOrange}
+    put{translate([(3)*W,0,0])}{SliceGreen}
+}
+
+def OutputTensor{
+    repeat{N,translate([0,H,0])}{
+        repeat{K,translate([W,0,0])}{
+            repeat{2, translate([0,0,Z])}{
+                put{translate([W/2,H/2,Z/2])}{CubeBrown}
+            }
+        }
+    }
+    put{translate([(K-1)*W+0.01,0.01,1*Z+0.01])}{
+        put{translate([W/2,H/2,Z/2])}{CubeOrange}
+    }
+    put{translate([(K-1)*W+0.01,0.01,0*Z])}{
+        put{translate([W/2,H/2,Z/2])}{CubeGreen}
+    }
+}
+
+def MyImage{
+    %put{translate([-6,0,0])}{Axes}
+    put{translate([0,0,0])}{InputTensor}
+    put{translate([2*W,-4,0])}{Weights}
+    put{translate([0,-9,(D-2)*Z])}{OutputTensor}
+
+    special |\small\uput{0.1}[u]#1{\lr{W[0]}}|(2*W,-4,(D+1)*Z)
+    special |\small\uput{0.1}[u]#1{\lr{W[1]}}|(5*W,-4,(D+1)*Z)
+
+    special |\small\uput{0.1}[l]#1{\lr{InputTn}}|(-4,-1,5)
+    special |\small\uput{0.1}[l]#1{\lr{WeightTn}}|(-4,-5,5)
+    special |\small\uput{0.1}[l]#1{\rl{ضرب درونی}}|(9,-1,0)
+    special |\small\uput{0.1}[l]#1{\lr{OutputTn}}|(-4,-10,5)
+
+    line[arrows=->]((K-1)*W+W/2,0,0)((K-3)*W+W/2,-3,0)
+    line[arrows=->]((K-1)*W+W/2,0,0)((K-3)*W+3*W+W/2,-3,0)
+    line[arrows=->]((K-3)*W+3*W+W/2,-5,0)((K-1)*W+W/2,-9,(D-3)*Z)
+}
+
+put{view((12,7,15))}{MyImage}

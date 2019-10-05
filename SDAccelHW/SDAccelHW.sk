@@ -1,0 +1,67 @@
+def BlockW 10.25
+def BlockH 8
+def MemW 10.25
+def MemH 1
+def SEPERATION  1.4
+def SUB_SEPERATION  0.25
+def KERNELS 3
+def KernelW (BlockW-(KERNELS+1)*SUB_SEPERATION)/KERNELS
+def KernelH (BlockH/3*2 - 2*SUB_SEPERATION)
+def StaticH (BlockH/3 - 2*SUB_SEPERATION)
+
+def HostSide{
+    polygon[linewidth=0.05,linecolor=black,opacity=0.25](0,0)(BlockW/2,0)(BlockW/2,BlockH/3*2)(0,BlockH/3*2)
+    polygon[linewidth=0.05,linecolor=black,opacity=0.5](0,BlockH/3*2)(BlockW/2,BlockH/3*2)(BlockW/2,BlockH)(0,BlockH)
+    put{translate([0,BlockH+SEPERATION])}{
+        polygon[linewidth=0.05,linecolor=black,opacity=0.25](0,0)(MemW/2,0)(MemW/2,MemH)(0,MemH)
+        special |\tiny\uput{-0.25}[d]#1{\rl{حافظه SDRAM}}| (MemW/4,MemH/4)
+    }
+    
+    special |\small\uput{0.4}[d]#1{\rl{میزبان}}| (BlockW/4,0)
+    special |\tiny\uput{0.1}[d]#1{\rl{پردازنده مرکزی}}| (BlockW/4,BlockH/6*5)
+    line[arrows=<->](BlockW/4, BlockH+0.2)(BlockW/4, BlockH+SEPERATION-0.2)
+}
+
+def DeviceSide{
+    polygon[linewidth=0.05,linecolor=black,opacity=0.25](0,0)(BlockW,0)(BlockW,BlockH/3*2)(0,BlockH/3*2)
+    polygon[linewidth=0.05,linecolor=black,opacity=0.25](0,BlockH/3*2)(BlockW,BlockH/3*2)(BlockW,BlockH)(0,BlockH)
+    put{translate([SUB_SEPERATION,SUB_SEPERATION])}{
+        repeat{KERNELS, translate([KernelW+SUB_SEPERATION,0])}{
+            polygon[linecolor=brown,opacity=0.5](0,0)(KernelW,0)(KernelW,KernelH)(0,KernelH)
+            put{translate([0,KernelH/4*3-SUB_SEPERATION])}{
+                polygon[linecolor=brown,opacity=0.25](SUB_SEPERATION,0)(KernelW-SUB_SEPERATION,0)(KernelW-SUB_SEPERATION,KernelH/4)(SUB_SEPERATION,KernelH/4)
+                special |\brown\tiny\uput{-0.1}[d]#1{\rl{حافظه محلی}}\black| (KernelW/2,KernelH/8)
+            }
+        }
+    }
+    put{translate([SUB_SEPERATION,BlockH/3*2+SUB_SEPERATION])}{
+        repeat{0, translate([KernelW+SUB_SEPERATION,0])}{
+            polygon[linecolor=black,opacity=0.5](0,0)(KernelW,0)(KernelW,StaticH)(0,StaticH)
+        }
+    }
+    put{translate([0,BlockH+SEPERATION])}{
+        polygon[linewidth=0.05,linecolor=black,opacity=0.25](0,0)(MemW,0)(MemW,MemH)(0,MemH)
+        special |\tiny\uput{-0.1}[d]#1{\rl{حافظه SDRAM}}| (MemW/2,MemH/2)
+    }
+    special |\tiny\uput{0.1}[r]#1{\rl{بخش ایستا}}\uput{0.1}[r]#2{\rl{بخش پویا}}| (BlockW,BlockH/6*4.5)(BlockW,BlockH/6*3.5)
+    special |\tiny\uput{-0.1}[d]#1{\rl{کنترل کننده PCIe و حافظه خارجی و ...}}| (BlockW/2,BlockH/6*5)
+    special |\small\uput{0.4}[d]#1{\lr{OpenCL Device(FPGA)}}| (BlockW/2,0)
+    special |\tiny\brown
+        \uput{-0.1}[d]#1{\rl{کرنل ۱}}
+        \uput{-0.1}[d]#2{\rl{کرنل ۲}}
+        \uput{-0.1}[d]#3{\rl{کرنل ۳}}
+        \black
+        | (0*(KernelW+SUB_SEPERATION)+SUB_SEPERATION+KernelW/2,KernelH/2) (1*(KernelW+SUB_SEPERATION)+SUB_SEPERATION+KernelW/2,KernelH/2) (2*(KernelW+SUB_SEPERATION)+SUB_SEPERATION+KernelW/2,KernelH/2) 
+
+    
+    line[arrows=<->](BlockW/2, BlockH+0.2)(BlockW/2, BlockH+SEPERATION-0.2)
+}
+
+def MyImage {
+    put {  translate([-2,0]) } {HostSide}
+    put {  translate([6,0]) } {DeviceSide}
+    line[arrows=<->](3.5, BlockH/3*2)(5.5, BlockH/3*2)
+    special |\tiny\uput{-0.35}[d]#1{\lr{PCIe}}| (4.5,BlockH/3*2)
+}
+
+put {  scale(0.5) } {MyImage}

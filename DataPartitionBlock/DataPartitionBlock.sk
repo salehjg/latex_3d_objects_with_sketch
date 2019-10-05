@@ -1,0 +1,38 @@
+def W 3
+def H 3
+
+def blockR {
+  polygon[linecolor=black,fillcolor=red,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def blockG {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def blockB {
+  polygon[linecolor=black,fillcolor=blue,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def blockC {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def arrow_right {
+  line[arrows=->](0,0)(1,0)
+}
+
+def Blocks2D {
+  {blockR}
+  put { translate([W+0.25,0]) } {blockG}  
+  put { translate([0,H+0.25]) } {blockB}  
+  put { translate([W+0.25,H+0.25]) } {blockC}  
+
+  special |\tiny
+            \uput{-0.1}[d]#1{$B(0,0)$}
+            \uput{-0.1}[d]#2{$B(0,1)$}
+            \uput{-0.1}[d]#3{$B(1,0)$}
+            \uput{-0.1}[d]#4{$B(1,1)$}|
+    (W/2,3*H/2+0.25)(3*W/2+0.25,3*H/2+0.25)(W/2,H/2)(3*W/2+0.25,H/2)
+}
+
+put {  scale(0.5) } {Blocks2D}

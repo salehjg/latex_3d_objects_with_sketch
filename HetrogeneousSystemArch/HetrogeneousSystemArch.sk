@@ -1,0 +1,64 @@
+def W 4
+def H 4
+def SEPERATION  2
+
+def blockCoMemory {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{حافظه کمک پردازنده}}|
+    (W/2,H/2)
+}
+
+def blockCoProcessor {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{کمک پردازنده}}|
+    (W/2,H/2)
+}
+
+def blockMemory {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{حافظه پردازنده مرکزی}}|
+    (W/2,H/2)
+}
+
+def blockProcessor {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{پردازنده مرکزی}}|
+    (W/2,H/2)
+}
+
+def pcie {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(2*W+SEPERATION,0)(2*W+SEPERATION,H/2)(0,H/2)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{گذرگاه \lr{PCIe}}}|
+    ((2*W+SEPERATION)/2,H/4)
+}
+
+def HAArch {
+  {blockProcessor}
+  put { translate([0,H+SEPERATION]) } {blockMemory}  
+  line[arrows=<->](W/2,0)(W/2,-SEPERATION)
+  line[arrows=<->](W/2,H)(W/2,H+SEPERATION)
+
+  put { translate([W+SEPERATION,0]) } {
+      {blockCoProcessor}
+      put { translate([0,H+SEPERATION]) } {blockCoMemory} 
+      line[arrows=<->](W/2,0)(W/2,-SEPERATION) 
+      line[arrows=<->](W/2,H)(W/2,H+SEPERATION)
+  }  
+
+  put { translate([0,-H/2 - SEPERATION]) } {
+      {pcie} 
+  }  
+ 
+  
+  %line[arrows=<->](2*W/3,H)(2*W/3,H+SEPERATION)
+
+
+  %line[arrows=<-](W/2,2*H+SEPERATION)(W/2,2*H+2*SEPERATION)
+}
+
+put {  scale(0.5) } {HAArch}

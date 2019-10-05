@@ -1,0 +1,106 @@
+def P (0.75)
+def WT 1
+def HT 3
+
+def TheEnd {
+	polygon[linecolor=black,fillcolor=yellow,opacity=0.2](0,HT/2-WT/2)(WT,HT/2-WT/2)(WT,HT/2+WT/2)(0,HT/2+WT/2)
+	special |\rput[d]{0}#1{\small\lr{C}}|(WT/2,HT/2)
+	special |\rput[d]{90}#1{\small\lr{Classification Scores}}|(WT/2+0.7,HT/2)
+}
+
+def TensorN3{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times3$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def ReduceMax {
+	polygon[linecolor=black,fillcolor=red,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{Max-pooling}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Mlp1024 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{MLP 1024}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Mlp128 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{MLP 128}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Mlp64 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{MLP 64}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def FCN512 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.4](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{FCN 512}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def FCN256 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.4](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{FCN 256}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def FCN9 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.4](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{FCN\textsuperscript{*} 9}}|(WT/2,HT/2) % THIS LAYER DOES NOT HAVE BATCH_NORM AND RELU
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def MatMul {
+	polygon[linecolor=black,fillcolor=brown,opacity=0.4](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{MatMul}}|(WT/2,HT/2) 
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def MainPartOfTransNet{
+	{TensorN3}
+	put{translate([WT+P,0])}{
+		{Mlp64}
+		put{translate([WT+P,0])}{
+			{Mlp128}
+			put{translate([WT+P,0])}{
+				{ReduceMax}
+				put{translate([WT+P,0])}{
+					{Mlp1024}
+					put{translate([WT+P,0])}{
+						{ReduceMax}
+						put{translate([WT+P,0])}{
+							{FCN512}
+							put{translate([WT+P,0])}{
+								{FCN256}
+								put{translate([WT+P,0])}{
+									{FCN9}
+									put{translate([WT+P,0])}{
+										{MatMul}
+										put{translate([WT+P,0])}{
+											{TensorN3}
+											special |\uput[r]{-0.1}#1{\small\lr{\dots}}|(WT+P,HT/2) 
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+		}
+	}
+}
+
+def TotalArch{
+	{MainPartOfTransNet}
+	line[arrows=->](WT/2,HT)(WT/2,HT+P)((WT+P)*9+WT/2,HT+P)((WT+P)*9+WT/2,HT)
+}
+
+put { scale(1) } {TotalArch}

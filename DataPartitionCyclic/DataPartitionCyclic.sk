@@ -1,0 +1,55 @@
+def W 1.5
+def H 3
+def PITCH (W+0.25)
+def W2 (W/2)
+def H2 (H/2)
+
+
+def blockR {
+  polygon[linecolor=black,fillcolor=red,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def blockG {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def blockB {
+  polygon[linecolor=black,fillcolor=blue,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def blockC {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+}
+
+def arrow_right {
+  line[arrows=->](0,0)(1,0)
+}
+
+def CyclicPartitioning {
+  {blockR}
+  put { translate([PITCH,0]) } {blockG}  
+  put { translate([PITCH*2,0]) } {blockB}  
+  put { translate([PITCH*3,0]) } {blockC}  
+
+  put { translate([PITCH*4,0]) }{
+      put { translate([0,0]) } {blockR}  
+      put { translate([PITCH,0]) } {blockG}  
+      put { translate([PITCH*2,0]) } {blockB}  
+      put { translate([PITCH*3,0]) } {blockC}  
+  }
+
+  special |\tiny
+            \uput{-0.1}[d]#1{$B_1$}
+            \uput{-0.1}[d]#2{$B_2$}
+            \uput{-0.1}[d]#3{$B_3$}
+            \uput{-0.1}[d]#4{$B_4$}
+            \uput{-0.1}[d]#5{$B_1$}
+            \uput{-0.1}[d]#6{$B_2$}
+            \uput{-0.1}[d]#7{$B_3$}
+            \uput{-0.1}[d]#8{$B_4$}
+
+    |
+    (0+W2,0+H2)(PITCH*1+W2,0+H2)(PITCH*2+W2,0+H2)(PITCH*3+W2,0+H2)(PITCH*4+W2,0+H2)(PITCH*5+W2,0+H2)(PITCH*6+W2,0+H2)(PITCH*7+W2,0+H2)(PITCH*8+W2,0+H2)
+}
+
+put {  scale(0.5) } {CyclicPartitioning}

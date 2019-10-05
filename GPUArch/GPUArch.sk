@@ -1,0 +1,67 @@
+def GPU_W 16
+def GPU_H 10
+def SEPERATION      0.5
+def SEPERATION2     0.25
+
+def GMEM_W (GPU_W-2*SEPERATION)
+def GMEM_H 2
+
+def SM_CNT 3
+def SM_CUDA_CORE_CNT 6
+def SM_W 4
+def SM_H (GPU_H-3*SEPERATION - GMEM_H)
+
+def SMEM_W (1)
+def SMEM_H (SM_H-2*SEPERATION2)
+
+def CUDA_CORE_W (SM_W-3*SEPERATION2 - SMEM_W)
+def CUDA_CORE_H 0.5
+
+def CTRL_W (GPU_W-(SM_W+SEPERATION)*SM_CNT-2*SEPERATION)
+def CTRL_H (GPU_H-GMEM_H-3*SEPERATION)
+
+
+ 
+def CUDACORE{
+    polygon[linecolor=black,fillcolor=cyan,opacity=0.6](0,0)(CUDA_CORE_W,0)(CUDA_CORE_W,CUDA_CORE_H)(0,CUDA_CORE_H)
+    special |\tiny\uput{-0.1}[d]#1{\rl{هسته پردازش‌گر}}|(CUDA_CORE_W/2,CUDA_CORE_H/2)
+}
+
+def SM{
+    polygon[linecolor=black,fillcolor=green,opacity=0.2](0,0)(SM_W,0)(SM_W,SM_H)(0,SM_H)
+    put { translate([SMEM_W+2*SEPERATION2,SEPERATION2]) } { 
+        repeat{SM_CUDA_CORE_CNT, translate([0,CUDA_CORE_H+SEPERATION2])}{
+            {CUDACORE}
+        }
+    }
+    put { translate([SEPERATION2,SEPERATION2]) } { 
+        polygon[linecolor=black,fillcolor=blue,opacity=0.6](0,0)(SMEM_W,0)(SMEM_W,SMEM_H)(0,SMEM_H)
+        special |\rput[d]{90}#1{\tiny\white\rl{حافظه محلی مشترک}}|(SMEM_W/2,SMEM_H/2)
+    }
+
+    special |\tiny\uput{+0.1}[l]#1{\rl{\textbf{هسته جریانی}}}|(SM_W-SEPERATION2,SM_H-2*SEPERATION2)
+}
+
+def HAArch {
+    polygon[linecolor=black,fillcolor=green,opacity=0.1](0,0)(GPU_W,0)(GPU_W,GPU_H)(0,GPU_H)
+    put { translate([SEPERATION,SEPERATION]) } { 
+        repeat{SM_CNT, translate([SM_W+SEPERATION,0])}{SM}
+    }
+    
+    put { translate([SEPERATION,SM_H + SEPERATION*2]) } { 
+        polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(GMEM_W,0)(GMEM_W,GMEM_H)(0,GMEM_H)
+        special |\small\uput{-0.1}[d]#1{\rl{کنترل‌کننده حافظه خارجی}}|(GMEM_W/2,GMEM_H/2)
+    }
+
+    put { translate([(SM_W+SEPERATION)*SM_CNT+SEPERATION, SEPERATION]) } { 
+        polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(CTRL_W,0)(CTRL_W,CTRL_H)(0,CTRL_H)
+        special |\rput[d]{90}#1{\small\rl{واحدهای کنترلی}}|(CTRL_W/2,CTRL_H/2)
+    }
+
+    %line[arrows=<->](2*W/3,H)(2*W/3,H+SEPERATION)
+
+
+    %line[arrows=<-](W/2,2*H+SEPERATION)(W/2,2*H+2*SEPERATION)
+}
+
+put {  scale(0.75) } {HAArch}

@@ -1,0 +1,37 @@
+def W 3
+def H 3
+def SEPERATION  2
+
+def blockPE {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{المان پردازشی}}|
+    (W/2,H/2)
+}
+
+def blockMem {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{حافظه داده}}|
+    (W/2,H/2)
+}
+
+def arrow_right {
+  line[arrows=->](0,0)(1,0)
+}
+
+def SISD {
+  {blockMem}
+  put { translate([0,H+SEPERATION]) } {blockPE}  
+ 
+  line[arrows=->](W/3,H)(W/3,H+SEPERATION)
+  line[arrows=<-](2*W/3,H)(2*W/3,H+SEPERATION)
+  line[arrows=<-](W/2,2*H+SEPERATION)(W/2,2*H+2*SEPERATION)
+
+  special |\tiny
+            \uput{0.1}[u]#1{\rl{جریان داده}}
+    |
+    (W/2,2*H+2*SEPERATION)
+}
+
+put {  scale(0.5) } {SISD}

@@ -1,0 +1,54 @@
+def CLK 1
+def H 1
+def OP_SEPERATION 0.08
+
+
+def clock_one_period {
+    line(0,0)(0,H)(CLK,H)(CLK,0)(CLK+CLK,0)
+}
+
+def op1 {
+    polygon[linecolor=black,fillcolor=red,opacity=0.5](0,0)(2*CLK-OP_SEPERATION,0)(2*CLK-OP_SEPERATION,H)(0,H)
+    special |\tiny\uput{-0.1}[d]#1{\lr{op1}}|(CLK,H/2)
+}
+
+def op2 {
+    polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(2*CLK-OP_SEPERATION,0)(2*CLK-OP_SEPERATION,H)(0,H)
+    special |\tiny\uput{-0.1}[d]#1{\lr{op2}}|(CLK,H/2)
+}
+
+def op3 {
+    polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(2*CLK-OP_SEPERATION,0)(2*CLK-OP_SEPERATION,H)(0,H)
+    special |\tiny\uput{-0.1}[d]#1{\lr{op3}}|(CLK,H/2)
+}
+
+def non_pipelined {
+    repeat{6, translate([2*CLK,0])}{clock_one_period}
+    repeat{2, translate([3*2*CLK,0])}{
+        put{translate([0,-2*H])}{op1}
+        put{translate([1*2*CLK,-2*H])}{op2}
+        put{translate([2*2*CLK,-2*H])}{op3}
+    }
+    line[arrows=<->](0,-2.5*H)(12*CLK,-2.5*H)
+    special |\tiny\uput{+0.1}[d]#1{\rl{6 کلاک}}|(6*CLK,-2.5*H)
+    special |\uput{+0.3}[l]#1{\lr{\textbf{loop1:}}}|(0,-1.5*H)
+}
+
+def pipelined {
+    repeat{6, translate([2*CLK,0])}{clock_one_period}
+    repeat{2, translate([1*2*CLK,-1.5*H])}{
+        put{translate([0,-2*H])}{op1}
+        put{translate([1*2*CLK,-2*H])}{op2}
+        put{translate([2*2*CLK,-2*H])}{op3}
+    }
+    line[arrows=<->](0,-4*H)(8*CLK,-4*H)
+    special |\tiny\uput{+0.1}[d]#1{\rl{4 کلاک}}|(4*CLK,-4*H)
+    special |\uput{+0.3}[l]#1{\lr{\textbf{loop2:}}}|(0,-2.25*H)
+}
+
+def waveform{
+    put{translate([0,0])}{non_pipelined}
+    put{translate([0,-6*H])}{pipelined}
+}
+
+put {  scale(0.5) } {waveform}

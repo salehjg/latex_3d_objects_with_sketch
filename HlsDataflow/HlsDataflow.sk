@@ -1,0 +1,49 @@
+def CLK 1
+def H 1
+def OP_SEPERATION 0.08
+
+
+def clock_one_period {
+    line(0,0)(0,H)(CLK,H)(CLK,0)(CLK+CLK,0)
+}
+
+def op1 {
+    polygon[linecolor=black,fillcolor=red,opacity=0.5](0,0)(4*CLK-OP_SEPERATION,0)(4*CLK-OP_SEPERATION,H)(0,H)
+    special |\tiny\uput{-0.1}[d]#1{\lr{SubFunction1}}|(2*CLK,H/2)
+}
+
+def op2 {
+    polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(6*CLK-OP_SEPERATION,0)(6*CLK-OP_SEPERATION,H)(0,H)
+    special |\tiny\uput{-0.1}[d]#1{\lr{SubFunction2}}|(3*CLK,H/2)
+}
+
+def non_dataflow {
+    repeat{6, translate([2*CLK,0])}{clock_one_period}
+    repeat{1, translate([3*2*CLK,0])}{
+        put{translate([0,-2*H])}{op1}
+        put{translate([4*CLK,-2*H])}{op2}
+    }
+    line[arrows=<->](0,-2.5*H)(10*CLK,-2.5*H)
+    special |\tiny\uput{+0.1}[d]#1{\rl{5 کلاک}}|(5*CLK,-2.5*H)
+    special |\uput{+0.3}[l]#1{\lr{\textbf{TopFunction1:}}}|(0,-1.5*H)
+}
+
+def dataflow {
+    repeat{6, translate([2*CLK,0])}{clock_one_period}
+    repeat{1, translate([4*CLK,0])}{
+    	put{translate([0,-1.5*H])}{op1}
+    }
+    repeat{1, translate([6*CLK,0])}{
+		put{translate([2*CLK,-3*H])}{op2}
+    }
+    line[arrows=<->](0,-3.5*H)(8*CLK,-3.5*H)
+    special |\tiny\uput{+0.1}[d]#1{\rl{4 کلاک}}|(4*CLK,-3.5*H)
+    special |\uput{+0.3}[l]#1{\lr{\textbf{TopFunction2:}}}|(0,-1.7*H)
+}
+
+def waveform{
+    put{translate([0,0])}{non_dataflow}
+    put{translate([0,-6*H])}{dataflow}
+}
+
+put {  scale(0.5) } {waveform}

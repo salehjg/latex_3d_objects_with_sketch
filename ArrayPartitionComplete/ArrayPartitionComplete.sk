@@ -1,0 +1,86 @@
+def W 3
+def H 1
+def SEPERATION 0.25
+def PER_BLOCK 2
+
+def array_element {
+    polygon[linecolor=black,fillcolor=cyan,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+}
+
+def Array {
+    repeat{8, translate([0,H+0])}{array_element}
+    special |\tiny
+    \uput{-0.1}[d]#1{A$[0]$}
+    \uput{-0.1}[d]#2{A$[1]$}
+    \uput{-0.1}[d]#3{A$[2]$}
+    \uput{-0.1}[d]#4{A$[3]$}
+    \uput{-0.1}[d]#5{A$[4]$}
+    \uput{-0.1}[d]#6{A$[5]$}
+    \uput{-0.1}[d]#7{A$[6]$}
+    \uput{-0.1}[d]#8{A$[7]$}|
+    (W/2,0+H/2)(W/2,1*(H+0)+H/2)(W/2,2*(H+0)+H/2)(W/2,3*(H+0)+H/2)(W/2,4*(H+0)+H/2)(W/2,5*(H+0)+H/2)(W/2,6*(H+0)+H/2)(W/2,7*(H+0)+H/2)
+}
+
+def CompletePartition{
+	put{translate([0, 0*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=red,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[0]$}|
+        (W/2,0+H/2)
+    }
+    put{translate([0, 1*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=green,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[1]$}|
+        (W/2,0+H/2)
+    }
+    put{translate([0, 2*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[2]$}|
+        (W/2,0+H/2)
+    }
+    put{translate([0, 3*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=brown,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[3]$}|
+        (W/2,0+H/2)
+    }
+    put{translate([0, 4*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=yellow,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[4]$}|
+        (W/2,0+H/2)
+    }
+    put{translate([0, 5*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=pink,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[5]$}|
+        (W/2,0+H/2)
+    }
+    put{translate([0, 6*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=purple,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[6]$}|
+        (W/2,0+H/2)
+    }
+    put{translate([0, 7*(H+SEPERATION)])}{
+        polygon[linecolor=black,fillcolor=orange,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+        special |\tiny
+        \uput{-0.1}[d]#1{A$[7]$}|
+        (W/2,0+H/2)
+    }
+}
+
+def MyImage {
+  	put{translate([-2*W,0.8])}{Array}
+  	put{translate([1*W,0])}{CompletePartition}
+  	
+  	line[arrows=->](-0.5*W, 4*(H+SEPERATION))(0.5*W, 4*(H+SEPERATION))
+  	
+  	special |\tiny
+    \uput{-0.4}[d]#1{\rl{جزءبندی \textbf{کامل}}}|
+    (0,4*(H+SEPERATION))
+}
+
+put {  scale(0.5) } {MyImage}

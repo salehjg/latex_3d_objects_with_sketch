@@ -1,0 +1,96 @@
+def W 3
+def H 3
+def SEPERATION  2
+
+def blockPE_0{
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{المان پردازشی}}
+            \uput{+0.1}[d]#1{\rl{[0]}}|
+    (W/2,H/2)(W/2,H/2)
+}
+def blockPE_1{
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{المان پردازشی}}
+            \uput{+0.1}[d]#1{\rl{[1]}}|
+    (W/2,H/2)(W/2,H/2)
+}
+def blockPE_N1{
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{المان پردازشی}}
+            \uput{+0.1}[d]#1{\rl{[$n-1$]}}|
+    (W/2,H/2)(W/2,H/2)
+}
+
+def blockMem_0 {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{حافظه داده}}
+            \uput{+0.1}[d]#1{\rl{[0]}}|
+    (W/2,H/2)(W/2,H/2)
+}
+
+def blockMem_1 {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{حافظه داده}}
+            \uput{+0.1}[d]#1{\rl{[1]}}|
+    (W/2,H/2)(W/2,H/2)
+}
+
+def blockMem_N1 {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{حافظه داده}}
+            \uput{+0.1}[d]#1{\rl{[$n-1$]}}|
+    (W/2,H/2)(W/2,H/2)
+}
+
+def threeDots{
+  dots [dotsize=0.05] (0,0)(0.25,0)(0.5,0)
+}
+
+def SIMD {
+
+
+
+  {blockMem_0}
+  put { translate([0,H+SEPERATION]) } {blockPE_0} 
+  line[arrows=->](W/3,H)(W/3,H+SEPERATION)
+  line[arrows=<-](2*W/3,H)(2*W/3,H+SEPERATION) 
+  line[arrows=->](W/2,2*H+SEPERATION+ SEPERATION/3)(W/2,2*H+SEPERATION)
+
+
+
+  put{translate([W+SEPERATION,0])}{
+      {blockMem_1}
+      put { translate([0,H+SEPERATION]) } {blockPE_1} 
+      line[arrows=->](W/3,H)(W/3,H+SEPERATION)
+      line[arrows=<-](2*W/3,H)(2*W/3,H+SEPERATION) 
+      line[arrows=->](W/2,2*H+SEPERATION+ SEPERATION/3)(W/2,2*H+SEPERATION)
+  }
+
+  % (W/2 + SEPERATION) space for three dots
+  put{translate([2*W+SEPERATION+(((W/2 + SEPERATION)-0.5)/2),3*H/2+SEPERATION])}{threeDots}
+  put{translate([2*W+SEPERATION+(((W/2 + SEPERATION)-0.5)/2),H/2])}{threeDots}
+
+  put{translate([(2*W+SEPERATION) + (W/2 + SEPERATION),0])}{
+      {blockMem_N1}
+      put { translate([0,H+SEPERATION]) } {blockPE_N1} 
+      line[arrows=->](W/3,H)(W/3,H+SEPERATION)
+      line[arrows=<-](2*W/3,H)(2*W/3,H+SEPERATION) 
+      line[arrows=->](W/2,2*H+SEPERATION+ SEPERATION/3)(W/2,2*H+SEPERATION)
+  }
+
+  line(W/2,2*H+SEPERATION+ SEPERATION/3) (  (2*W+SEPERATION) + (W/2 + SEPERATION) + W/2 ,2*H+SEPERATION+ SEPERATION/3)
+  line( ((2*W+SEPERATION) + (W/2 + SEPERATION) + W)/2  ,2*H+SEPERATION+ SEPERATION/3 + 2*SEPERATION/3) (  ((2*W+SEPERATION) + (W/2 + SEPERATION) + W)/2 ,2*H+SEPERATION+ SEPERATION/3)
+
+  special |\tiny
+            \uput{0.1}[u]#1{\rl{دستورها}}|
+    (((2*W+SEPERATION) + (W/2 + SEPERATION) + W)/2,2*H+SEPERATION+ SEPERATION/3 + 2*SEPERATION/3)
+  
+}
+
+put {  scale(0.5) } {SIMD}

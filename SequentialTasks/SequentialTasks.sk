@@ -1,0 +1,66 @@
+def O (0,0,0)
+def N 6
+def N2 3
+def PITCH 2
+def H 5
+
+def task {
+  polygon[linecolor=black,fillcolor=blue,opacity=0.8](0,0)(1,0)(1,H)(0,H)
+}
+
+def arrow_right {
+  line[arrows=->](0,0)(1,0)
+}
+
+def tasksSequentialPlot {
+  repeat {N, translate([PITCH,0]) } {task} 
+  put { translate([N*PITCH,0]) } {task} 
+  put { translate([(N+1)*PITCH,H/2]) } {arrow_right} 
+  put { translate([(N+2)*PITCH,0]) } {task} 
+
+  put { scale((N+6)*PITCH) then translate([-PITCH,-1]) } {arrow_right} 
+
+  special |\footnotesize
+           \uput{2pt}[d]#1{زمان}
+          |
+    ((N+4)/2*PITCH,-2)
+}
+
+def tasksParallelPlot {
+  repeat {N2, translate([PITCH,0]) } {
+    put { translate([0,H+1]) } {task} 
+  }
+
+  put { translate([(N2+0)*PITCH,3*H/2 +1]) } {arrow_right} 
+
+  repeat {N2, translate([PITCH,0]) } {
+    put { translate([(N2+1)*PITCH,2*H+2]) } {task} 
+  }
+  repeat {N2-1, translate([PITCH,0]) } {
+    put { translate([(N2+1)*PITCH + 1 + 0,1*H+1]) } {task} 
+  }
+  repeat {N2, translate([PITCH,0]) } {
+    put { translate([(N2+1)*PITCH + 0,0]) } {task} 
+  }
+
+  put { translate([(N2*2 +1)*PITCH,3*H/2 +1]) } {arrow_right} 
+
+  repeat {N2, translate([PITCH,0]) } {
+    put { translate([((N2+1)*2)*PITCH + 0,1*H+1]) } {task} 
+  }
+
+  put { scale((N+6)*PITCH) then translate([-PITCH,-1]) } {arrow_right} 
+
+  special |\footnotesize
+           \uput{2pt}[d]#1{زمان}
+           \tiny
+           \uput{2pt}[u]#2{سریال}
+           \uput{2pt}[u]#3{موازی}
+           \uput{2pt}[u]#4{سریال}
+          |
+    ((N+4)/2*PITCH,-2) ((N2/2)*PITCH - 0.5 ,2*H+1) ((3*N2/2)*PITCH+1.5,3*H+2) ((5*N2/2)*PITCH+3.5,2*H+1)
+
+}
+
+put {  scale(0.2) } {tasksSequentialPlot}
+put {  translate([0,-25]) then scale(0.2)} {tasksParallelPlot}

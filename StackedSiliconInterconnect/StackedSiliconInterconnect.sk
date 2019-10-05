@@ -1,0 +1,43 @@
+def W 3
+def H 1
+def SEPERATION  0.25
+
+def SLR {
+	polygon[linecolor=black,fillcolor=yellow,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+	
+	repeat{11, translate([SEPERATION,0])}{
+		dots[linecolor=gray,dotsize=0.1](SEPERATION,-SEPERATION/2)
+	}
+}
+
+def Interconnect {
+	polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(4.41*W,0)(4.41*W,H)(0,H)
+	special |\tiny
+	\uput{+0.1}[l]#1{\rl{ویفر اتصال دهنده}}|
+	(4.41*W,H/2)
+}
+
+def Package {
+	polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(4.41*W+2*SEPERATION,0)(4.41*W+2*SEPERATION,H)(0,H)
+	special |\tiny
+	\uput{+0.1}[l]#1{\rl{پکیج FPGA}}|
+	(4.41*W+2*SEPERATION,H/2)
+
+	repeat{14, translate([4*SEPERATION,0])}{
+		dots[linecolor=gray,dotsize=0.25](0.15+SEPERATION,-SEPERATION)
+	}
+}
+
+def MyImage {
+	{Interconnect}
+	put{translate([-SEPERATION, -H])}{Package}
+	repeat{4, translate([W+SEPERATION,0])}{
+		put{translate([SEPERATION,H+0.25])}{SLR}
+	}
+	special |\tiny\uput{+0.45}[r]#1{\lr{SLR3}}|(0*(W+SEPERATION)+SEPERATION,3*H/2+SEPERATION)
+	special |\tiny\uput{+0.45}[r]#1{\lr{SLR2}}|(1*(W+SEPERATION)+SEPERATION,3*H/2+SEPERATION)
+	special |\tiny\uput{+0.45}[r]#1{\lr{SLR1}}|(2*(W+SEPERATION)+SEPERATION,3*H/2+SEPERATION)
+	special |\tiny\uput{+0.45}[r]#1{\lr{SLR0}}|(3*(W+SEPERATION)+SEPERATION,3*H/2+SEPERATION)
+}
+
+put {  scale(0.5) } {MyImage}

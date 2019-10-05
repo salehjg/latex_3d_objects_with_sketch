@@ -1,0 +1,173 @@
+def W 3
+def H 3
+def P (0.75)
+def WT 1
+def HT 3
+
+def TheEnd {
+	polygon[linecolor=black,fillcolor=yellow,opacity=0.2](0,HT/2-WT/2)(WT,HT/2-WT/2)(WT,HT/2+WT/2)(0,HT/2+WT/2)
+	special |\rput[d]{0}#1{\tiny\lr{C}}|(WT/2,HT/2)
+	special |\rput[d]{90}#1{\tiny\lr{Classification Scores}}|(WT/2+0.7,HT/2)
+}
+
+def ReduceMax {
+	polygon[linecolor=black,fillcolor=red,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\lr{Max-pooling}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Mlp1024 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\lr{MLP 1024}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def FCN512 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.4](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\lr{FCN 512}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def FCN256 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.4](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\lr{FCN 256}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def FCN40 {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.4](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\lr{FCN 40}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def EdgeConv64 {
+	polygon[linecolor=black,fillcolor=cyan,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+	special |\uput[u]{0}#1{\tiny\lr{EdgeConv}}|(W/2,H/2-0.1)
+	special |\uput[d]{0}#1{\tiny\lr{$X=64$}}|(W/2,H/2+0.1)
+	line[arrows=->](W,H/2)(W+P,H/2)
+}
+
+def SpatialTrans {
+	polygon[linecolor=black,fillcolor=brown,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+	special |\uput[u]{0}#1{\tiny\lr{Spatial}}|(W/2,H/2-0.1)
+	special |\uput[d]{0}#1{\tiny\lr{Transform}}|(W/2,H/2+0.1)
+	line[arrows=->](W,H/2)(W+P,H/2)
+}
+
+def EdgeConv128 {
+	polygon[linecolor=black,fillcolor=cyan,opacity=0.2](0,0)(W,0)(W,H)(0,H)
+	special |\uput[u]{0}#1{\tiny\lr{EdgeConv}}|(W/2,H/2-0.1)
+	special |\uput[d]{0}#1{\tiny\lr{$X=128$}}|(W/2,H/2+0.1)
+	line[arrows=->](W,H/2)(W+P,H/2)
+}
+
+def TensorN3{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\white\lr{$n\times3$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorN64{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\white\lr{$n\times64$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorN128{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\white\lr{$n\times128$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Tensor1024{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\tiny\white\lr{$1024$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+% TotalWidth = 4*W + 5*WT + 9*P
+def ArchMiddlePart{
+	{TensorN3}
+	put{translate([WT+P,0])}{
+		{EdgeConv64}
+		put{translate([W+P,0])}{
+			{TensorN64}
+			put{translate([WT+P,0])}{
+				{EdgeConv64}
+				put{translate([W+P,0])}{
+					{TensorN64}
+					put{translate([WT+P,0])}{
+						{EdgeConv64}
+						put{translate([W+P,0])}{
+							{TensorN64}
+							put{translate([WT+P,0])}{
+								{EdgeConv128}
+								put{translate([W+P,0])}{
+									{TensorN128}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+def Aggrigation{
+	line[arrows=->](WT+P+W+P+WT/2,HT)(WT+P+W+P+WT/2,HT+P*3)(WT+P+W+P+WT  +  P+W+P+WT+P+W+P+WT+P+W+P+WT+P+WT/2,HT+P*3)(WT+P+W+P+WT  +  P+W+P+WT+P+W+P+WT+P+W+P+WT+P+WT/2,HT/2+WT/2)
+	line[arrows=->](2*(WT+P+W+P)+WT/2,HT)(2*(WT+P+W+P)+WT/2,HT+P*2)(WT+P+W+P+WT  +  P+W+P+WT+P+W+P+WT+P+W+P+WT+P+WT/2,HT+P*2)(WT+P+W+P+WT  +  P+W+P+WT+P+W+P+WT+P+W+P+WT+P+WT/2,HT/2+WT/2)
+	line[arrows=->](3*(WT+P+W+P)+WT/2,HT)(3*(WT+P+W+P)+WT/2,HT+P*1)(WT+P+W+P+WT  +  P+W+P+WT+P+W+P+WT+P+W+P+WT+P+WT/2,HT+P*1)(WT+P+W+P+WT  +  P+W+P+WT+P+W+P+WT+P+W+P+WT+P+WT/2,HT/2+WT/2)
+
+	put{translate([WT+P+W+P+WT  +  P+W+P+WT+P+W+P+WT+P+W+P+WT+P+WT/2,HT/2])}{
+		sweep { 32<>, rotate(360 / 32, (0,0,0), [0,0,1]) } (WT/2,0,0)
+		special |\uput[d]{0}#1{\tiny\lr{Concat}}|(0,-WT/2)
+		line (0,-WT/2)(0,WT/2)
+		line (-WT/2,0)(WT/2,0)
+		line[arrows=->](WT/2,0)(WT/2+P,0)
+	}
+
+}
+
+def ArchAggrigated{
+	{ArchMiddlePart}
+	{Aggrigation}
+	put{ translate([4*W + 5*WT + 9*P + WT + P,0]) }{
+		{Mlp1024}
+		put{translate([WT+P,0])}{
+			{ReduceMax}
+			put{translate([WT+P,0])}{
+				{Tensor1024}
+				put{translate([WT+P,0])}{
+					{FCN512}
+					put{translate([WT+P,0])}{
+						{FCN256}
+						put{translate([WT+P,0])}{
+							{FCN40}
+							put{translate([WT+P,0])}{
+								{TheEnd}
+							}
+						}
+					}
+				}
+				
+				
+
+			}
+		}
+	}
+}
+
+def FullArch{
+	{TensorN3}
+	put{translate([WT+P,0])}{
+		{SpatialTrans}
+		put{translate([W+P,0])}{
+			{ArchAggrigated}
+		}
+	}
+}
+
+%then rotate(-90, [0,0,1])
+put { scale(0.5) } {FullArch}

@@ -1,0 +1,166 @@
+def P (0.75)
+def WT 1
+def HT 4
+
+def TensorNF{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times F$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def PairwiseDistance{
+	polygon[linecolor=black,fillcolor=cyan,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{Pairwise Distance}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorNN{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times n$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorNK{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times K$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def KNN{
+	polygon[linecolor=black,fillcolor=cyan,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{TopK\textsubscript{K}}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorNKF{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times K\times F$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorNK2F{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times K\times 2F$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorNKF_NO_ARROW{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times K\times F$}}|(WT/2,HT/2)
+	%line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Gather{
+	polygon[linecolor=black,fillcolor=cyan,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{Gather}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Tile{
+	polygon[linecolor=black,fillcolor=cyan,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{Tile}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def ReduceMax {
+	polygon[linecolor=black,fillcolor=red,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{Max-pooling}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def MatOps {
+	polygon[linecolor=black,fillcolor=red,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{MatOps(\emph{Sub.})}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def Concat {
+	polygon[linecolor=black,fillcolor=red,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{Concat}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def MlpX {
+	polygon[linecolor=black,fillcolor=blue,opacity=0.2](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\lr{MLP\textsubscript{X}}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorNKX{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times K\times X$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+}
+
+def TensorNX{
+	polygon[linecolor=black,fillcolor=black,opacity=1](0,0)(WT,0)(WT,HT)(0,HT)
+	special |\rput[d]{90}#1{\small\white\lr{$n\times X$}}|(WT/2,HT/2)
+	line[arrows=->](WT,HT/2)(WT+P,HT/2)
+	special |\uput[r]{0.1}#1{\small\lr{\dots}}|(WT+P,HT/2)
+}
+
+def MainPart1{
+	{TensorNF}
+	put{translate([WT+P,0])}{
+		{PairwiseDistance}
+		put{translate([WT+P,0])}{
+			{TensorNN}
+			put{translate([WT+P,0])}{
+				{KNN}
+				put{translate([WT+P,0])}{
+					{TensorNK}
+					put{translate([WT+P,0])}{
+						{Gather} % SHOULD GET POINTCLOUD WITH SKIPLINK0
+						put{translate([WT+P,0])}{
+							{TensorNKF}
+							put{translate([WT+P,0])}{
+								{MatOps} % SHOULD GET TILED POINTCLOUD WITH SKIPLINK1
+								put{translate([WT+P,0])}{
+									{TensorNKF}
+									put{translate([WT+P,0])}{
+										{Concat} % SHOULD GET TILED POINTCLOUD WITH SKIPLINK2
+										put{translate([WT+P,0])}{
+											{TensorNK2F}
+											put{translate([WT+P,0])}{
+												{MlpX}
+												put{translate([WT+P,0])}{
+													{TensorNKX} 
+													put{translate([WT+P,0])}{
+														{ReduceMax} 
+														put{translate([WT+P,0])}{
+															{TensorNX}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+def SkipLinks{
+	line[arrows=->](WT/2,0)(WT/2,0-P)(5*(WT+P)+WT/2,0-P)(5*(WT+P)+WT/2,0) %SKIPLINK0
+	line[arrows=->](WT/2,0)(WT/2,0-2*P-HT/2)(WT+P,0-2*P-HT/2) % Tile Layer's Input
+	put{translate([1*(WT+P),0-P*2-HT])}{
+		{Tile}
+		put{translate([WT+P,0])}{
+			{TensorNKF_NO_ARROW}
+		}
+	}
+	line[arrows=->](2*(WT+P)+WT,0-2*P-HT/2)(7*(WT+P)+WT/2,0-2*P-HT/2)(7*(WT+P)+WT/2,0) %SKIPLINK1
+	line[arrows=->](7*(WT+P)+WT/2,0-2*P-HT/2)(9*(WT+P)+WT/2 ,0-2*P-HT/2)(9*(WT+P)+WT/2 ,0) %SKIPLINK2
+}
+
+def TotalArch{
+	{MainPart1}
+	{SkipLinks}
+}
+
+put { scale(0.8) } {TotalArch}

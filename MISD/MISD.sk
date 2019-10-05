@@ -1,0 +1,60 @@
+def W 3
+def H 3
+def SEPERATION  2
+
+def blockPE_0 {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{المان پردازشی}}
+            \uput{+0.1}[d]#2{\rl{[0]}}
+            \uput{+0.1}[u]#3{\rl{جریان دستور[0]}}|
+    (W/2,H/2)(W/2,H/2)(W/2,H+SEPERATION*2/3)
+  line[arrows=->](W/2,H+SEPERATION*2/3)(W/2,H)
+  line[arrows=->](W,H/2)(W+SEPERATION,H/2)
+}
+
+def blockPE_1 {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{المان پردازشی}}
+            \uput{+0.1}[d]#2{\rl{[1]}}
+            \uput{+0.1}[u]#3{\rl{جریان دستور[1]}}|
+    (W/2,H/2)(W/2,H/2)(W/2,H+SEPERATION*2/3)
+  line[arrows=->](W/2,H+SEPERATION*2/3)(W/2,H)
+  line[arrows=->](W,H/2)(W+W/4,H/2)
+}
+
+def blockPE_N1 {
+  polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.2}[d]#1{\rl{المان پردازشی}}
+            \uput{+0.1}[d]#2{\rl{[$n-1$]}}
+            \uput{+0.1}[u]#3{\rl{جریان دستور[$n-1$]}}|
+    (W/2,H/2)(W/2,H/2)(W/2,H+SEPERATION*2/3)
+  line[arrows=->](W/2,H+SEPERATION*2/3)(W/2,H)
+  line(W,H/2)(W+SEPERATION,H/2)(W+SEPERATION,-H/3)
+}
+
+def blockMem {
+  polygon[linecolor=black,fillcolor=green,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+  special |\tiny
+            \uput{-0.1}[d]#1{\rl{حافظه داده}}|
+    (W/2,H/2)
+  line[arrows=->](W,H/2)(W+SEPERATION,H/2)
+}
+
+def threeDots{
+  dots [dotsize=0.05] (0,0)(0.25,0)(0.5,0)
+}
+
+def MISD {
+  {blockMem}
+  put { translate([W+SEPERATION,0]) } {blockPE_0}  
+  put { translate([2*(W+SEPERATION),0]) } {blockPE_1}  
+  put { translate([2*(W+SEPERATION) + W + (SEPERATION+W/2-0.5)/2, H/2]) } {threeDots} 
+  put { translate([3*(W+SEPERATION)+ (W/2) ,0]) } {blockPE_N1}  
+ 
+  line [arrows=->](4*(W+SEPERATION)+ (W/2), -H/3)(W/2, -H/3)(W/2, 0)
+}
+
+put {  scale(0.5) } {MISD}

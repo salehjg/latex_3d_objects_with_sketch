@@ -1,0 +1,108 @@
+def W 1
+def H 1
+def P 10
+
+def D0 2
+def D1 2
+def D2 2
+def D3 2
+
+def DD0 1
+def DD1 2
+def DD2 1
+
+def slice1{
+    repeat{D3, translate([W,0])}{
+        polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+    }
+} 
+
+def assembled{
+    repeat{D0*D1*D2, translate([D3*W,0])}{
+        {slice1}
+    }
+    repeat{D0*D1*D2+1, translate([D3*W,0])}{
+        {line[linewidth=2pt](0,H)(0,-H/2)}
+    }
+    repeat{D0*D1+1, translate([D2*D3*W,0])}{
+        {line[linewidth=2pt](0,H+0.5)(0,-1*H)}
+    }
+    repeat{D0+1, translate([D1*D2*D3*W,0])}{
+        {line[linewidth=4pt,linecolor=brown](0,H+1)(0,-2*H)}
+    }
+}
+
+def slice2{
+    repeat{DD2, translate([W,0])}{
+        polygon[linecolor=black,fillcolor=cyan,opacity=0.5](0,0)(W,0)(W,H)(0,H)
+    }
+} 
+
+def assembled2{
+    repeat{DD0, translate([DD2*DD1*W,0])}{
+        %{line[linewidth=2pt](0,H+1)(0,-2*H)}
+
+        repeat{DD1, translate([DD2*W,0])}{
+            %{line[linewidth=2pt](0,H)(0,-H)}
+            {slice2}
+            %{line[linewidth=2pt](DD2*W,H)(DD2*W,-H)}
+        }
+
+        %{line[linewidth=2pt](DD2*DD1*W,H+1)(DD2*DD1*W,-2*H)}
+
+        put{translate([0,0])}{line[linewidth=2pt](0,H)(0,-H)}
+        put{translate([DD1*W,0])}{line[linewidth=2pt](0,H)(0,-H)}
+    }
+}
+
+def circle{ %circle r=W/2
+	put{translate([W/2,0])}{
+		sweep { 32<>, rotate(360 / 32, (0,0,0), [0,0,1]) } (W/2,0,0)
+	}
+}
+
+def SingleOperatorBlue{
+	put{translate([0,P/2])}{circle}
+
+	line[linecolor=blue](W/2,P)(W/2,P/2+W/2) %Top Vertical Line
+	line[linecolor=blue](1*D3*W+W/2,P)(W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=blue](2*D3*W+W/2,P)(W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=blue](3*D3*W+W/2,P)(W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=blue](4*D3*W+W/2,P)(W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=blue](5*D3*W+W/2,P)(W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=blue](6*D3*W+W/2,P)(W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=blue](7*D3*W+W/2,P)(W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+
+
+
+	line[arrows=->,linecolor=blue](W/2,P/2-W/2)(7*W+W/2,0) %bottom vertical line
+	special |\uput{-0.1}[d]#1{\tiny\lr{$+$}}|(W/2,P/2)
+}
+
+def SingleOperatorOrange{
+    put{translate([14*W,P/2])}{circle}
+
+    line[linecolor=orange](W/2,P)(7*D3*W+W/2,P/2+W/2) %Top Vertical Line
+    line[linecolor=orange](1*D3*W+W/2,P)(7*D3*W+W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=orange](2*D3*W+W/2,P)(7*D3*W+W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=orange](3*D3*W+W/2,P)(7*D3*W+W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=orange](4*D3*W+W/2,P)(7*D3*W+W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=orange](5*D3*W+W/2,P)(7*D3*W+W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=orange](6*D3*W+W/2,P)(7*D3*W+W/2+0.1,P/2+W/2) %Top 1 o'clock line 
+    line[linecolor=orange](7*D3*W+W/2,P)(7*D3*W+W/2+0.1,P/2+W/2) %Top 1 o'clock line  
+
+    line[arrows=->,linecolor=orange](7*D3*W+W/2,P/2-W/2)(7*W+W/2,0) %bottom vertical line
+    special |\uput{-0.1}[d]#1{\tiny\lr{$+$}}|(7*D3*W+W/2,P/2)
+}
+
+def MyImage{
+	put{translate([0,P])}{assembled}
+    put{translate([7*W,-H])}{assembled2}
+    put{translate([0,0])}{SingleOperatorBlue}
+    put{translate([W,0])}{SingleOperatorOrange}
+    special |\uput{-0.1}[d]#1{\tiny\lr{\textbf{OutputTn} (2)}}|(-3,-0.5)
+    special |\uput{-0.1}[d]#1{\tiny\lr{\textbf{InputTn} (2x2x2x2)}}|(-3,0.5+P)
+}
+
+
+put {  scale(0.5) } {MyImage}
